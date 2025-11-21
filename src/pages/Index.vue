@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SidebarButton from '@/components/SidebarButton.vue'
+import UserStat from '@/components/UserStat.vue'
 import { ref } from 'vue'
 
 const buttons = [
@@ -57,7 +58,7 @@ const activeButton = ref<string>('1')
 
       <!-- main -->
       <div class="flex-1">
-        <div v-if="activeButton === '1'" class="flex bg-main-bg w-full h-full">1</div>
+        <UserStat v-if="activeButton === '1'" class="flex bg-main-bg w-full h-full"/>
         <div v-if="activeButton === '2'" class="flex bg-main-bg w-full h-full">2</div>
         <div v-if="activeButton === '3'" class="flex bg-main-bg w-full h-full">3</div>
       </div>
