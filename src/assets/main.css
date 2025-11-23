@@ -4,10 +4,12 @@
   --color-darkest-black: #000000;
   --color-total-white: #ffffff;
   --color-accent-grey: #a7a7a7;
-  --color-diagram-grey: #3d3e3e;
+  --color-diagram-grey: #3d3e3ec3;
+  --color-tab-inActive:#E3E3E3;
   --color-diagram-dark: #151619;
   --color-secondary-grey: #151619;
   --color-main-bg: #f2f2f2;
+
 }
 
 * {
