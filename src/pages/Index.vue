@@ -4,23 +4,26 @@ const emit = defineEmits(['click'])
 import AppSidebar from '@/components/AppSidebar.vue'
 import UserBooks from '@/components/UserBooks.vue'
 import UserStat from '@/components/UserStat.vue'
-import { ref } from 'vue'
 
-const activeButton = ref<string>('2')
+import { computed, onMounted, ref } from 'vue'
+
+const activeButton = ref<string>('1')
 
 function makeActive(id: string) {
   activeButton.value = id
-  emit('click',id)
 }
+
 </script>
+
+
 
 <template>
   <div class="flex h-screen">
     <!-- sidebar -->
 
-    <AppSidebar @click="makeActive" />
+    <AppSidebar @set-active-button="makeActive" :active-button="activeButton" />
 
-    <div class="flex flex-col w-full h-screen">
+    <div class="flex flex-col ml-16 w-full h-screen">
       <!-- nav -->
       <div class="flex w-full h-16 justify-between items-center p-3">
         <div class="flex gap-3">

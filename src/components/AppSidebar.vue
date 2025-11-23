@@ -2,8 +2,6 @@
 
 import SidebarButton from './SidebarButton.vue'
 
-
-
 const buttons = [
   {
     id: '1',
@@ -24,18 +22,23 @@ const buttons = [
   },
 ]
 
+defineEmits<{
+  setActiveButton: [id: string]
+}>()
+defineProps<{activeButton: string}>()
+
 
 
 </script>
 
 <template>
-  <div class="bg-darkest-black w-16 h-screen flex flex-col gap-20 items-center relative">
+  <div class="bg-darkest-black w-16 h-screen flex flex-col gap-20 items-center  fixed">
     <div class="flex h-16"><img src="/public/logo-white.svg" class="p-3" alt="" /></div>
 
     <div class="flex flex-col gap-3 w-full">
       <SidebarButton
         v-for="button in buttons"
-        @click="makeActive(button.id)"
+        @click="$emit('setActiveButton', button.id)"
         :active="activeButton === button.id"
         :key="button.id"
         :img_black="button.img_black"

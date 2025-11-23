@@ -1,8 +1,47 @@
 <script setup lang="ts">
+import { computed, onMounted , ref} from 'vue';
 import BlackLogoText from './BlackLogoText.vue';
 import UserPie from './UserPie.vue';
 import UserStatBlock from './UserStatBlock.vue'
 import UserStatMenu from './UserStatMenu.vue';
+import type { Quote } from '@/types/common.types';
+import axios from 'axios';
+
+const quotes = ref<Quote[]>([])
+const currentQuote = ref<Quote | null>(null)
+
+
+// const currentQuote = computed(() => {
+//   if (quotes.value.length === 0) return null
+//   const randomIndex = Math.floor(Math.random() * quotes.value.length)
+//   return quotes.value[randomIndex]
+// })
+
+const getRandomQuote =(quotes: Quote[]):Quote =>{
+  if (quotes.length === 0) return {
+    id: '1',
+    author: 'Булат кадиев',
+  quote: 'Яички'
+} 
+  const randomIndex = Math.floor(Math.random() * quotes.length)
+  return quotes[randomIndex] 
+
+
+}
+
+
+
+ onMounted(fetchQuotes)
+ async function fetchQuotes() {
+  try {
+    const { data  } = await axios.get<Quote[]>('https://raw.githubusercontent.com/Up-11/-/refs/heads/main/quotes.json')
+    // quotes.value = data
+    currentQuote.value = getRandomQuote(data)
+      console.log(quotes)
+  } catch (error) {
+    console.log(error)
+  }
+}
 </script>
 
 <template>
@@ -21,12 +60,11 @@ import UserStatMenu from './UserStatMenu.vue';
       </div>
 
       <div class="flex flex-col rounded-2xl p-10 bg-total-white relative">
+        <!-- <p>Загрузка...</p> -->
         <h1 class="text-3xl font-semibold text-center">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni facere nesciunt neque
-          labore ipsa ducimus recusandae! Qui earum blanditiis quaerat odit minus. Placeat dolore
-          vel provident impedit laborum possimus ex. 
+        {{ currentQuote?.quote}}
         </h1>
-        <h1 class="self-end">автор цитаты</h1>
+        <h1 class="self-end">{{ currentQuote?.author }}</h1>
         
       </div>
     </div>
